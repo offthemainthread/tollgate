@@ -1,0 +1,36 @@
+name: Go Projects CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test ${{ matrix.project }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        project: [aggregator-go, ingest-go]
+      fail-fast: false
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "${{ matrix.project }}/go.mod"
+          cache: true
+          cache-dependency-path: "${{ matrix.project }}/go.sum"
+
+      - name: Install Dependencies
+        run: go mod download
+        working-directory: ${{ matrix.project }}
+
+      - name: Run Tests
+        run: go test -v -race ./...
+        working-directory: ${{ matrix.project }}
