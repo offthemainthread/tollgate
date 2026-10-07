@@ -11,7 +11,7 @@ Contracts this service implements:
 
 - [x] Module created: `github.com/offthemainthread/tollgate/ingest-go`
 - [x] Dependencies fetched: gin, franz-go, go-redis, miniredis
-- [ ] Skeleton and `/healthz`
+- [x] Skeleton and `/healthz`
 - [ ] Request/response types and request-level checks
 - [ ] Validation
 - [ ] Auth
@@ -25,12 +25,12 @@ Contracts this service implements:
 
 ## Dependencies
 
-| Package                                | Purpose                                   |
-| -------------------------------------- | ----------------------------------------- |
-| `github.com/gin-gonic/gin`             | HTTP server and routing                   |
-| `github.com/twmb/franz-go/pkg/kgo`     | Kafka producer (idempotent by default)    |
-| `github.com/redis/go-redis/v9`         | Dedupe and rate limiting                  |
-| `github.com/alicebob/miniredis/v2`     | In-memory fake Redis for tests            |
+| Package                            | Purpose                                |
+| ---------------------------------- | -------------------------------------- |
+| `github.com/gin-gonic/gin`         | HTTP server and routing                |
+| `github.com/twmb/franz-go/pkg/kgo` | Kafka producer (idempotent by default) |
+| `github.com/redis/go-redis/v9`     | Dedupe and rate limiting               |
+| `github.com/alicebob/miniredis/v2` | In-memory fake Redis for tests         |
 
 Everything else uses the standard library: `log/slog` for logging, `os.Getenv` for config, `net/http` for server lifecycle.
 
@@ -99,12 +99,12 @@ Send it twice. The second response should show `duplicate`, and the topic should
 
 Environment variables (commit a `.env.example`):
 
-| Variable        | Purpose                                          |
-| --------------- | ------------------------------------------------ |
-| `PORT`          | HTTP port (default `8080`)                       |
-| `KAFKA_BROKERS` | Comma-separated broker list                      |
-| `KAFKA_TOPIC`   | Defaults to `usage.events.v1`                    |
-| `REDIS_ADDR`    | Redis address                                    |
+| Variable        | Purpose                                                    |
+| --------------- | ---------------------------------------------------------- |
+| `PORT`          | HTTP port (default `8080`)                                 |
+| `KAFKA_BROKERS` | Comma-separated broker list                                |
+| `KAFKA_TOPIC`   | Defaults to `usage.events.v1`                              |
+| `REDIS_ADDR`    | Redis address                                              |
 | static API keys | Key to tenant (and meters) mapping, until real auth exists |
 
 ## Gotchas

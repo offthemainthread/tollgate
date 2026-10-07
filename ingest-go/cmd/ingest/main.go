@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/offthemainline/tollgate/ingest-go/internal/api"
-	"github.com/offthemainline/tollgate/ingest-go/internal/config"
+	"github.com/offthemainthread/tollgate/ingest-go/internal/api"
+	"github.com/offthemainthread/tollgate/ingest-go/internal/config"
 )
 
 func main() {
