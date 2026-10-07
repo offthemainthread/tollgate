@@ -40,3 +40,16 @@ type EventResult struct {
 type EventsResponse struct {
 	Results []EventResult `json:"results"`
 }
+
+const (
+	CodeUnsupportedMediaType = "unsupported_media_type"
+	CodeInvalidJSON          = "invalid_json"
+	CodeNotAnArray           = "not_an_array"
+	CodeEmptyBatch           = "empty_batch"
+	CodeBodyTooLarge         = "body_too_large"
+	CodeBatchTooLarge        = "batch_too_large"
+)
+
+type ErrorResponse struct {
+	Error ErrorDetail `json:"error"`
+}
