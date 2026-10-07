@@ -1,6 +1,6 @@
 COMPOSE = docker compose
 
-.PHONY up down restart logs
+.PHONY: up down restart logs
 
 up:
 	$(COMPOSE) up -d
