@@ -12,7 +12,7 @@ Contracts this service implements:
 - [x] Module created: `github.com/offthemainthread/tollgate/ingest-go`
 - [x] Dependencies fetched: gin, franz-go, go-redis, miniredis
 - [x] Skeleton and `/healthz`
-- [ ] Request/response types and request-level checks
+- [x] Request/response types and request-level checks
 - [ ] Validation
 - [ ] Auth
 - [ ] Publisher (Kafka)
@@ -118,7 +118,7 @@ Environment variables (commit a `.env.example`):
 
 ## Repo housekeeping
 
-- [ ] **Makefile:** line 3 reads `.PHONY up down restart logs`. It needs a colon: `.PHONY: up down restart logs`. Without it, `make` stops with "missing separator".
+- [x] **Makefile:** `.PHONY` colon fixed.
 - [ ] **Makefile:** add a `topics` target for the topic-creation command above.
 - [ ] **CI:** `.github/workflows/go-test.yml` runs `aggregator-go` too, but that folder has no `go.mod` yet. Remove it from the matrix until the module exists.
 - [ ] Add `.env.example`.

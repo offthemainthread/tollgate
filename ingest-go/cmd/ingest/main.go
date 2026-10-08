@@ -17,9 +17,11 @@ func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 	cfg := config.Load()
 
+	handler := &api.Handler{}
+
 	svr := &http.Server{
 		Addr:              ":" + cfg.Port,
-		Handler:           api.NewRouter(),
+		Handler:           api.NewRouter(handler),
 		ReadHeaderTimeout: 5 * time.Second,
 	}
 

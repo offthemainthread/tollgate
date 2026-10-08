@@ -68,17 +68,17 @@ The goal is to get the hard parts of billing right: duplicate events, late and o
 Ingestion (`ingest-go`):
 
 ```
-POST /v1/events
+POST /v1/events            # array of 1-500 events, per-event results
 Authorization: Bearer <api-key>
-{
-  "idempotency_key": "evt_8f3a...",
-  "meter": "api_calls",
-  "quantity": 1000,
-  "timestamp": "2026-10-04T15:30:00Z"
-}
-→ 202 Accepted
-
-POST /v1/events:batch      # up to N events per request, per-event results
+[
+  {
+    "idempotency_key": "evt_8f3a...",
+    "meter": "api_calls",
+    "quantity": 1000,
+    "timestamp": "2026-10-04T15:30:00Z"
+  }
+]
+→ 202 Accepted  {"results": [{"index": 0, "idempotency_key": "evt_8f3a...", "status": "accepted"}]}
 ```
 
 Billing (`billing-spring`), all scoped to the authenticated tenant:
@@ -97,7 +97,7 @@ POST /v1/admin/recompute              # replay a period after a pricing fix
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `tenants`              | Customers of the platform                                                                                                    |
 | `api_keys`             | Hashed keys, tenant, scopes, revoked flag                                                                                    |
-| `meters`               | What is measured (`api_calls`, `gb_stored`, ...) and how it aggregates                                                       |
+| `meters`               | What a tenant measures (`api_calls`, `gb_stored`, ...) and how it aggregates. Meters are per tenant                          |
 | `plans`, `plan_prices` | Pricing model: flat fee, per-unit price, tiers (from/to quantity, unit price in cents)                                       |
 | `subscriptions`        | Tenant, plan, start, end, billing period                                                                                     |
 | `usage_events`         | Append-only record: tenant, idempotency key, meter, quantity, event time, received time. Unique on (tenant, idempotency key) |

@@ -2,7 +2,7 @@
 
 This is the entry point to the system for tenants. They will send events and this service will:
 
-- Authenticate the events using API key
+- Authenticate the request using a Bearer API key
 - Rate limit
 - Validate the request
 - Deduplication on incoming API request using idempotency key provided

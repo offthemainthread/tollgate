@@ -93,6 +93,28 @@ If the request itself is valid, the response is `202 Accepted` with one result p
 | `invalid_timestamp`       | Not RFC 3339 UTC, or outside the allowed window      |
 | `idempotency_conflict`    | Same key as an earlier event but different contents  |
 
+### Request-level errors
+
+If the request itself is bad, no events are processed and the response is an error status with this body:
+
+```json
+{
+  "error": {
+    "code": "not_an_array",
+    "message": "request body must be a JSON array of events"
+  }
+}
+```
+
+| Code                     | HTTP status | Cause                                                   |
+| ------------------------ | ----------- | ------------------------------------------------------- |
+| `unsupported_media_type` | `415`       | `Content-Type` is not `application/json`                |
+| `invalid_json`           | `400`       | Empty body, malformed JSON, or data after the array     |
+| `not_an_array`           | `400`       | Body is valid JSON but not an array                     |
+| `empty_batch`            | `400`       | The array is empty (or the body is `null`)              |
+| `batch_too_large`        | `413`       | More than 500 events                                    |
+| `body_too_large`         | `413`       | Body larger than 1 MB                                   |
+
 ### HTTP status codes
 
 | Status | Meaning                                                       | Retry?               |
